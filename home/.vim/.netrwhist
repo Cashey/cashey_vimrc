@@ -1,0 +1,11 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =9
+let g:netrw_dirhist_1='/data1/mm64/casheywen/QQMail/antispam/mmspamkeyblackagent'
+let g:netrw_dirhist_2='/data1/mm64/casheywen/QQMail/antispam/mmspamkeyblackagent/worker'
+let g:netrw_dirhist_3='/data1/mm64/casheywen/QQMail/antispam/mmspamattr'
+let g:netrw_dirhist_4='/data1/mm64/casheywen/QQMail/antispam/mmspamkeyblackagent/worker'
+let g:netrw_dirhist_5='/data1/mm64/casheywen/QQMail/antispam/mmspamkeyblackagent'
+let g:netrw_dirhist_6='/data1/mm64/casheywen/Code/secutil/FileCmp'
+let g:netrw_dirhist_7='/data1/mm64/casheywen/QQMail/antispam/mmspamkeyblackagent'
+let g:netrw_dirhist_8='/data1/mm64/casheywen/Code/kw_gen'
+let g:netrw_dirhist_9='/data1/mm64/casheywen/QQMail/antispam/mmspamkeyblackagent/worker'
