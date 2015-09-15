@@ -1,0 +1,17 @@
+#!/bin/bash
+
+if [[ $# -lt 1 ]]
+then
+    echo "$0 BUILD_COMMAND"
+    exit 1
+fi
+
+if [[ -f "Makefile" ]]
+then
+    cp "Makefile" "Makefile.`date +%s`"
+fi
+
+cat > "Makefile" << EOF
+ALL:
+	echo -e "shopt -s expand_aliases\n$* 2>&1" | bash -l | grep -vE "^[0-9]+:[0-9]+:[0-9]+"
+EOF

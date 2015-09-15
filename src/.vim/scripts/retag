@@ -1,0 +1,64 @@
+#!/bin/bash
+
+TAG_DIR=~/tags
+TAG_LIST="${TAG_DIR}/directory.txt"
+
+mkdir -p "${TAG_DIR}"
+cd "${TAG_DIR}"
+
+function GetDirList()
+{
+    cat "${TAG_LIST}" | grep -vE "^#" | xargs -i bash -c "echo {}"
+}
+
+
+dirlist=`GetDirList`
+
+while true
+do
+
+    if [[ -z "${dirlist}" ]]                                                   
+    then
+        echo "Directory list empty, please add paths to ${TAG_LIST}"
+        echo "Edit now? [Y/N]"
+        read option
+        if [[ "${option:0:1}" == "y" || "${option:0:1}" == "Y" ]]
+        then
+            vim ${TAG_LIST}
+            dirlist=`GetDirList`
+        else
+            exit 1
+        fi
+    fi
+
+    if [[ -n "${dirlist}" ]]                                                   
+    then  
+        echo -e "\
+\e[0;32;1mDirectory list file (edit if needed):\e[0m
+-----------------------------------------
+\e[0;33;1m${TAG_LIST}\e[0m
+-----------------------------------------
+
+\e[0;32;1mIndexed directories:\e[0m
+-----------------------------------------
+\e[0;33;1m${dirlist}\e[0m
+-----------------------------------------
+
+\e[0;32;1mCreating tags ...\e[0m"
+
+        ctags -R --c++-kinds=+p --fields=+iaS --extra=+q ${dirlist}
+
+        echo -e "\e[0;32;1mCreating cscope ...\e[0m"
+
+        find ${dirlist} -type f -regex '.*\.\(cpp\|c\|cc\|hpp\|cxx\)$' > "files.txt"
+
+        cscope -Rbkq `awk '{print "-I"$0}' <<< "${dirlist}"` -i "files.txt"
+
+        echo -e "\e[0;32;1mBuild done! Press ENTER to exit.\e[0m"
+        read
+
+        exit
+    fi
+
+done
+
