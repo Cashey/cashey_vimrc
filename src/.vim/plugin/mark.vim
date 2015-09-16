@@ -141,6 +141,7 @@ nnoremap <silent> <Plug>MarkClear :call
 " nnoremap <silent> # :if !<sid>SearchNext("b")<bar>execute "norm! #"<bar>endif<cr>
 
 command! -nargs=? Mark call s:DoMark(<f-args>)
+command! -nargs=? MarkOneWord call s:MarkOneWord(<f-args>)
 
 autocmd! BufWinEnter * call s:UpdateMark()
 
@@ -148,6 +149,13 @@ autocmd! BufWinEnter * call s:UpdateMark()
 
 function! s:MarkCurrentWord()
 	let w = s:PrevWord()
+	if w != ""
+		call s:DoMark('\<' . w . '\>')
+	endif
+endfunction
+
+function! s:MarkOneWord(w)
+	let w = a:w
 	if w != ""
 		call s:DoMark('\<' . w . '\>')
 	endif
@@ -491,4 +499,5 @@ let &cpo = s:save_cpo
 " vim: ts=2 sw=2
 
 " key mappings by cashey
-nmap <C-\>m :Mark <C-R>=expand("<cword>")<CR><CR>	
+nmap <C-\>M :Mark <C-R>=expand("<cword>")<CR><CR>	
+nmap <C-\>m :MarkOneWord <C-R>=expand("<cword>")<CR><CR>	
