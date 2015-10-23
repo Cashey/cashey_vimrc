@@ -1,20 +1,17 @@
 ﻿if exists("loaded_vimrc_by_lennon")
     finish
 endif
-let loaded_vimrc_by_lennon = 1
-" Author Lennon
-" ==============================================================
-" **                       C文件快捷方式                      **
-" ==============================================================
-let s:author = "casheywen"
 
-" 生成源代码的标准文件头注释
+let loaded_vimrc_by_lennon = 1
+let s:author = "casheywen@qq.com"
+
+" For standard C headers
 function F_FILEHEAD()
     call append(0, "/******************************************************************************")
-    call append(1, " * 文件名称：".bufname("%"))
-    call append(2, " * 文件描述：") 
-    call append(3, " * 创建日期：".strftime("%Y-%m-%d"))
-    call append(4, " * 作    者：".s:author)
+    call append(1, " * Name: ".bufname("%"))
+    call append(2, " * Author: ".s:author) 
+    call append(3, " * Date: ".strftime("%Y-%m-%d"))
+    call append(4, " * Description: ")
     call append(5, " ******************************************************************************/")
 endfunc
 command! -nargs=0 CodeHead :call F_FILEHEAD()
@@ -62,19 +59,19 @@ function F_INITCHEADFILE(prefix)
 endfunc
 command! -nargs=1 InitCHead :call F_INITCHEADFILE("<args>")
 
-" 生成源代码的标准函数头注释
+" Generate the comment for C functions.
 function F_FUNCHEAD()
     let prefix = strpart(getline("."), 0, col(".") - 1)
-    " 获取函数名
+    " Get function name.
     let funcname = matchstr(getline("."), ' [a-zA-Z0-9_]\+(')
     let funcname = strpart(funcname, 1, strlen(funcname) - 2)
-    " 获取参数列表
+    " Get param list.
     let param_line = matchstr(getline("."), '([ a-zA-Z0-9_,*&\[\]]\+)') "add \[\] 
     let param_line = strpart(param_line, 1, strlen(param_line) - 2)
 
     call append(line(".")-1, prefix."/******************************************************************************")
-    call append(line(".")-1, prefix." * 函数名称：".funcname)
-    call append(line(".")-1, prefix." * 函数描述: ")
+    call append(line(".")-1, prefix." * Function Name: ".funcname)
+    call append(line(".")-1, prefix." * Function Desc: ")
     let tmp = param_line
     let param_idx = stridx(tmp, ",")
     while param_idx >= 0
@@ -90,7 +87,7 @@ function F_FUNCHEAD()
         else
             let param = "(".param.")"
         endif
-        call append(line(".")-1, prefix." * 输入参数：".param)
+        call append(line(".")-1, prefix." * Param: ".param)
         let tmp = strpart(tmp, param_idx + 1)
         let param_idx = stridx(tmp, ",")
     endwhile
@@ -106,12 +103,10 @@ function F_FUNCHEAD()
         else
             let param = "(".param.")"
         endif
-        call append(line(".")-1, prefix." * 输入参数：".param)
+        call append(line(".")-1, prefix." * Param: ".param)
     endif
-    call append(line(".")-1, prefix." * 返回值  : ")
-    call append(line(".")-1, prefix." * 创建日期: ".strftime("%Y-%m-%d"))
-    call append(line(".")-1, prefix." * 作    者：".s:author)
-    call append(line(".")-1, prefix." * 修改历史: ")
+    call append(line(".")-1, prefix." * Return: ")
+    call append(line(".")-1, prefix." * Date: ".strftime("%Y-%m-%d"))
     call append(line(".")-1, prefix." ******************************************************************************/")
 endfunc
 command! -nargs=0 FuncHead :call F_FUNCHEAD() 
