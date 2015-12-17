@@ -13,5 +13,5 @@ fi
 
 cat > "Makefile" << EOF
 ALL:
-	echo -e "shopt -s expand_aliases\n$* 2>&1" | bash -l | grep -vE "^[0-9]+:[0-9]+:[0-9]+"
+	echo -e "shopt -s expand_aliases\n$* 2>&1" | bash -l | sed -rs 's#^([0-9]+):([0-9]+):([0-9]+)#\1 \2 \3#'
 EOF
