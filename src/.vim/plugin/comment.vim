@@ -1,9 +1,9 @@
-﻿if exists("loaded_vimrc_by_lennon")
+﻿if exists("loaded_cashey_vimrc")
     finish
 endif
 
-let loaded_vimrc_by_lennon = 1
-let s:author = "casheywen@qq.com"
+let loaded_cashey_vimrc = 1
+let s:author = ""
 
 " For standard C headers
 function F_FILEHEAD()
@@ -19,43 +19,43 @@ command! -nargs=0 CodeHead :call F_FILEHEAD()
 function F_INITHEADFILE(prefix)
     let macro_name = "_".toupper(a:prefix)."_".substitute(toupper(bufname("%")), '[^A-Z]\+', "_", "g")."_INCLUDED_"
     call F_FILEHEAD()
-    call append(6, "#ifndef ".macro_name)
-    call append(7, "#define ".macro_name)
-    call append(8, "")
-    call append(9, "")
-    call append(10, "")
-    call append(11, "#endif")
+    call append(line(".")-1, "#ifndef ".macro_name)
+    call append(line(".")-1, "#define ".macro_name)
+    call append(line(".")-1, "")
+    call append(line(".")-1, "")
+    call append(line(".")-1, "")
+    call append(line(".")-1, "#endif")
 endfunc
 command! -nargs=1 InitHead :call F_INITHEADFILE("<args>")
 
 function F_DEFHEADFILE()
     let macro_name = "_".substitute(toupper(bufname("%")), '[^A-Z]\+', "_", "g")."_INCLUDED_"
-    call append(6, "#ifndef ".macro_name)
-    call append(7, "#define ".macro_name)
-    call append(8, "")
-    call append(9, "")
-    call append(10, "")
-    call append(11, "#endif")
+    call append(line(".")-1, "#ifndef ".macro_name)
+    call append(line(".")-1, "#define ".macro_name)
+    call append(line(".")-1, "")
+    call append(line(".")-1, "")
+    call append(line(".")-1, "")
+    call append(line(".")-1, "#endif")
 endfunc
 command! -nargs=0 DefHead :call F_DEFHEADFILE()
 
 function F_INITCHEADFILE(prefix)
     let macro_name = "_".toupper(a:prefix)."_".substitute(toupper(bufname("%")), '[^A-Z]\+', "_", "g")."_INCLUDED_"
     call F_FILEHEAD()
-    call append(6, "#ifndef ".macro_name)
-    call append(7, "#define ".macro_name)
-    call append(8, "")
-    call append(9, "#ifdef __cplusplus")
-    call append(10, "extern \"C\" { ")
-    call append(11, "#endif")
-    call append(12, "")
-    call append(13, "// TODO: Add your code here.")
-    call append(14, "")
-    call append(15, "#ifdef __cplusplus")
-    call append(16, "}")
-    call append(17, "#endif")
-    call append(18, "")
-    call append(19, "#endif")
+    call append(line(".")-1, "#ifndef ".macro_name)
+    call append(line(".")-1, "#define ".macro_name)
+    call append(line(".")-1, "")
+    call append(line(".")-1, "#ifdef __cplusplus")
+    call append(line(".")-1, "extern \"C\" { ")
+    call append(line(".")-1, "#endif")
+    call append(line(".")-1, "")
+    call append(line(".")-1, "// TODO: Add your code here.")
+    call append(line(".")-1, "")
+    call append(line(".")-1, "#ifdef __cplusplus")
+    call append(line(".")-1, "}")
+    call append(line(".")-1, "#endif")
+    call append(line(".")-1, "")
+    call append(line(".")-1, "#endif")
 endfunc
 command! -nargs=1 InitCHead :call F_INITCHEADFILE("<args>")
 
