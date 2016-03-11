@@ -699,7 +699,8 @@ command! E Explore
 " Disable Undo file
 set noundofile
 
-
+" 按一下 ; 后再按一下 f 窗口高度 + 15
 nmap <leader>f :res +15<cr>
+" 按一下 ; 后再按一下 g 窗口宽度 + 30
 nmap <leader>g :vertical res +30<cr>
 
