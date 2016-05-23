@@ -31,34 +31,41 @@
 
 ### 代码跳转
 
-#### 1. 创建tags索引
+#### 1. 创建tags+cscope索引
 
 直接执行`retag`命令。
 
-如果是第一次使用，执行`retag`命令后会提示类似这样的信息：
+如果是第一次使用，在shell下执行`retag`命令（或在 vim 中按下 `[Ctrl + T]`）后会提示类似这样的信息：
 
-    Directory list not set, please add your directory paths to /home/casheywen/tags/directory.txt
+	Directory list empty, please add paths to /root/tags/directory.txt
+	Edit now? [Y/N]
 
-此时`~/tags`目录及里面的目录列表文件`~/tags/directory.txt`已经创建。
+按下 `Y` 后会自动跳到路径列表编辑，这里可以添加我们需要建立查找索引的代码路径：
 
-此时我们在`~/tags/directory.txt`里添加一行，内容为一个代码目录路径，然后再执行`retag`：
-
-	echo ~/QQMail/antispam >> ~/tags/directory.txt
-	retag
+	~/Code/nginx-1.10.0/
 
 这样所有在该目录下的代码文件就全部被创建了索引，索引文件在`~/tags/tags`。
 
-如果你有多个目录需要索引，你可以在`~/tags/directory.txt`里添加多行，每行为一个代码路径。路径越多索引时间越长，请酌量添加。
+如果需要引入其他路径，只需要在 `~/tags/directory.txt` 文件中再增加一行。
 
-如果代码被修改，则需要重新索引建立索引，此时还是调用`retag`命令。
+另外，如果想暂时关闭对其中某个路径的引用，可以在该行路径前加`#`来暂时排除掉它。
+
+	#/usr/local/apache2/cgi-bin
+	/usr/local/lib/python2.7
+	/usr/lib/python2.7
+	~/Code/nginx-1.10.0/
+
+由于 tags 支持 python，所以 python 语言的代码也是可以成功索引的。
+
+如果代码被修改，则需要重新索引建立索引，此时还是调用`retag`命令（或在 vim 中按下 `[Ctrl + T]`）。
 
 #### 2. vim中使用跳转
 
 此时我们打开文件一个文件查看：
 
-	vim ~/QQMail/antispam/mmspamchecksvr/mmbizspamhelper.cpp
+	vim ngx_http_header_filter_module.c
 
-![enter image description here](http://localhost/using-tags.gif)
+![enter image description here](img/using-tags.gif)
 
 这里用到了一些快捷键，用快捷键之前先按`ESC`切换到命令模式：
 
@@ -68,25 +75,25 @@
 
 ## 符号高亮
 
-![enter image description here](http://localhost/highlight.gif)
+![enter image description here](img/highlight.gif)
 
-这里用到的快捷键会稍复杂一些，大家操作时按顺序按，确保在命令模式下：
+这里用到的快捷键会稍复杂一些，大家操作时按顺序按，确保在命令模式下，依次按下：
 
 	[ESC]
 	... (移动光标到你要高亮或取消高亮的词)
 	Ctrl + \
 	m
 
-以上高亮效果是全字匹配的，如果你需要匹配一部分，可以在命令模式下输入：
+以上高亮效果是全字匹配的，如果你需要非全字匹配的，可以在命令模式下输入：
 
-	:Mark iLocal
-![enter image description here](http://localhost/mark.png)
+	:Mark header_
+![enter image description here](img/mark.gif)
 
-至于全字匹配，也可以用输入命令的方式：
+至于全字匹配，也可以用输入命令的方式，例如：
 
-	:MarkOneWord md5
+	:MarkOneWord pos
 
-这样会全字匹配高亮`md5`。
+这样会全字匹配高亮`pos`。
 
 如果要不区分大小写，可以用`vim`中的大小写开关来控制：
 
@@ -99,7 +106,7 @@
 
 按下`[F8]`后，窗口左侧会展示函数列表窗口：
 
-![enter image description here](http://localhost/function-list.png)
+![enter image description here](img/function-list.png)
 
 按快捷键 `ctrl + w`或 `ctrl + h` 可切到该函数列表窗口。
 
@@ -115,7 +122,7 @@
 
 本配置中集成的代码补全插件为`Omnicppcomplete`，效果如下：
 
-![enter image description here](http://localhost/complete.gif)
+![enter image description here](img/complete.gif)
 
 这里的补全是基于`tags`的，所以如果补全出不来，请确定把路径添加到了`~/tags/directory.txt`，并调用`retag`。
 
@@ -126,7 +133,7 @@
 
 ## 编译整合
 
-![enter image description here](http://localhost/compile.gif)
+![enter image description here](img/compile.gif)
 
 `vim`本身有自带对`make`的整合，对于使用`make`进行编译的项目，可以直接在`vim`的命令模式下输入：
 
