@@ -2,7 +2,7 @@
 
 1. vim版本为7.3以上
 
-2. ctags、cscope已经安装（开发机一般都已经装了）
+2. ctags、cscope已经安装
 
 
 > **相关软件最新版下载地址：**
@@ -16,6 +16,10 @@
 > 编译vim时建议 `./configure --with-features=huge`  将全部功能包含进来。
 > 
 > 如果是自家电脑，直接 `apt-get` 或 `yum` 安装即可。
+
+在Ubuntu下这一行命令就可以安装好：
+
+    sudo apt-get install vim ctags cscope
 
 ## 如何安装
 
