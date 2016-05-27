@@ -17,7 +17,7 @@
 > 
 > 如果是自家电脑，直接 `apt-get` 或 `yum` 安装即可。
 
-在Ubuntu下这一行命令就可以安装好：
+> 在Ubuntu下这一行命令就可以安装好：
 
     sudo apt-get install vim ctags cscope
 
