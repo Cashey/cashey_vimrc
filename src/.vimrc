@@ -644,7 +644,7 @@ set noic
 
 set tags+=~/tags/tags
 
-cs add ~/tags/cscope.out
+:silent! cs add ~/tags/cscope.out
 
 " ------------------------------------------------------------------ 
 " Desc: OmniCppComplete
