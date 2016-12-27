@@ -17,7 +17,7 @@ endfunc
 command! -nargs=0 CodeHead :call F_FILEHEAD()
 
 function F_INITHEADFILE(prefix)
-    let macro_name = "_".toupper(a:prefix)."_".substitute(toupper(bufname("%")), '[^A-Z]\+', "_", "g")."_INCLUDED_"
+    let macro_name = "_".toupper(a:prefix)."_".substitute(toupper(bufname("%")), '[^A-Z0-9]\+', "_", "g")."_INCLUDED_"
     call F_FILEHEAD()
     call append(line(".")-1, "#ifndef ".macro_name)
     call append(line(".")-1, "#define ".macro_name)
@@ -29,7 +29,7 @@ endfunc
 command! -nargs=1 InitHead :call F_INITHEADFILE("<args>")
 
 function F_DEFHEADFILE()
-    let macro_name = "_".substitute(toupper(bufname("%")), '[^A-Z]\+', "_", "g")."_INCLUDED_"
+    let macro_name = "_".substitute(toupper(bufname("%")), '[^A-Z0-9]\+', "_", "g")."_INCLUDED_"
     call append(line(".")-1, "#ifndef ".macro_name)
     call append(line(".")-1, "#define ".macro_name)
     call append(line(".")-1, "")
@@ -40,7 +40,7 @@ endfunc
 command! -nargs=0 DefHead :call F_DEFHEADFILE()
 
 function F_INITCHEADFILE(prefix)
-    let macro_name = "_".toupper(a:prefix)."_".substitute(toupper(bufname("%")), '[^A-Z]\+', "_", "g")."_INCLUDED_"
+    let macro_name = "_".toupper(a:prefix)."_".substitute(toupper(bufname("%")), '[^A-Z0-9]\+', "_", "g")."_INCLUDED_"
     call F_FILEHEAD()
     call append(line(".")-1, "#ifndef ".macro_name)
     call append(line(".")-1, "#define ".macro_name)
