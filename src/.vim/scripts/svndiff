@@ -1,0 +1,5 @@
+#!/bin/bash
+TMP="/tmp/svn${RANDOM}.diff"
+svn diff $@ > "${TMP}"
+vim "${TMP}"
+rm "${TMP}"
