@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [[ -z "$1" ]]
+then
+    echo "Usage:"
+    echo "  $0 [PATH]..."
+    exit 1
+fi
+
+dir=~/codebak/`date +"%Y%m%d_%H%M%S"`
+
+mkdir -p "${dir}" && mv $@ "${dir}"
+
+if [[ $? -eq 0 ]]
+then
+    echo "Backup success, at [${dir}]."
+else
+    echo "Backup fail."
+    exit 1
+fi
+
